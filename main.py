@@ -3,10 +3,11 @@ Name : Adil Aman Mohammed
 Course : Formal language theory
 Assignment no: 4
 CWID : A20395630
-Description:   the below code is an implementation of taking input CFG and applying 3 algorithms (eps Removal, Remove immediate left recursion, Remove left recursion, Remove unit productions)
+Description:   the below code is an implementation of taking input CFG and applying 4 algorithms (eps Removal, Remove immediate left recursion, Remove left recursion, Remove unit productions)
 """
 
 import sys
+
 
 def readGrammarSymbols(filename):
     #initialize sets and start symbol
@@ -148,6 +149,7 @@ def mergeProductionsPostEpsilonElimination(rule_set, nullable_symbols_set):
 
     return new_grammar_rules
 
+
 #function for extracting new grammar rules
 def fetchUpdatedGrammarRules(filepath):
     #obtaining terminal symbols, non_terminal symbols, and start symbol
@@ -165,6 +167,23 @@ def fetchUpdatedGrammarRules(filepath):
             left = left.strip()
             right = right.strip()
             
+            # Check for the "><" pattern in RHS
+            if "><" in right:
+                print("Space error: Non-terminal symbols must be separated by spaces.")
+                exit(1)
+            RHS_symbols = right.split()
+
+            for symbol in RHS_symbols:
+                if symbol.startswith("<") and symbol.endswith(">"):
+                    # nonTerminalSymbols.add(symbol)
+                    pass
+                elif not symbol.startswith("<") and not symbol.endswith(">"):
+                    # terminalSymbols.add(symbol)
+                    pass
+                else:
+                    print("Symbols must be properly classified and separated by spaces")
+                    exit(1)
+                
             #if left side not in dictionary, add it with an empty list
             if left not in updatedGrammarRules:
                 updatedGrammarRules[left] = []
@@ -475,6 +494,8 @@ def eliminateLeftRecursion(grammar_rules):
 def Main(inputFilePath, outputFilePath):
     #Acquiring grammar rules from input
     grammarRules, terminals, nonTerminals, startSymbol = fetchUpdatedGrammarRules(inputFilePath)
+
+    # grammarRules, terminals, nonTerminals, startSymbol = function_parse_grammar(inputFilePath)
 
     #Implementing the algorithm to remove unproductive rules from the grammar
     grammarRules = eliminateUnproductiveRules(grammarRules, terminals, nonTerminals, startSymbol)  

@@ -12,4 +12,4 @@ Description: the below code is an implementation of taking input CFG and applyin
 
     python [script name] [input file] [output file]
 
-	python prog5.py input.txt output.txt
+	python prog4.py input.txt output.txt

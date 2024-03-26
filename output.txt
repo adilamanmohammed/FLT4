@@ -1,4 +1,6 @@
-<S> ::= a <A> b
-<S> ::= a b
-<A> ::= a <A> b
-<A> ::= a b
+<expression> ::= ( <expression> )
+<expression> ::= id
+<expression> ::= ( <expression> ) <expression'>
+<expression> ::= id <expression'>
+<expression'> ::= + <expression> <expression'>
+<expression'> ::= + <expression>
